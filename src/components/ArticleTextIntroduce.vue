@@ -1,5 +1,5 @@
 <template>
-  <n-space vertical align="start" style="box-shadow:0 1rem 1rem whitesmoke;border-radius: 1rem;
+  <n-space vertical align="start" style="box-shadow:0 1rem 1rem whitesmoke;border-radius: .5rem;
 background-image: url('../assets/img1.png');
 " size="large"
            item-style="width:100%;">
