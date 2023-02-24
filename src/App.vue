@@ -5,7 +5,7 @@ import './assets/font/font.css'
 </script>
 
 <template>
-  <hello-world msg="111"/>
+  <hello-world/>
 </template>
 
 <style scoped>

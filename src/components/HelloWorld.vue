@@ -2,22 +2,15 @@
 import {onMounted, ref} from 'vue'
 import {
   MenuOption, NAvatar, NBackTop,
-  NButton, NCard, NDescriptions, NDescriptionsItem, NEllipsis,
+  NButton, NCard, NDivider, NEllipsis,
   NImage,
-  NLayout,
-  NLayoutContent,
-  NLayoutFooter,
-  NLayoutHeader,
-  NMenu,
+  NMenu, NScrollbar,
   NSpace, NTag, NTime
 } from "naive-ui";
-import {$ref} from "vue/macros";
 import ArticleIntroduce from "./ArticleIntroduce.vue";
 import SH3 from "./SH3.vue";
-import STag from "./STag.vue";
 import ArticleTextIntroduce from "./ArticleTextIntroduce.vue";
 
-const count = ref(0)
 const activeKey = ref<string | null>(null);
 const menuOptions: MenuOption[] = [
   {
@@ -37,7 +30,10 @@ const menuOptions: MenuOption[] = [
 const cardb = ref(null)
 onMounted(() => {
   cardb.value.children[0].children[0].style = "width:auto;margin-left:1rem;margin-right:1rem;box-shadow:0 .5rem 1.2rem rgba(215,215,215,5);height:25rem;border-radius: 1rem;";
-
+  window.addEventListener('scroll', () => {
+    let scroll = document.documentElement.scrollTop || document.body.scrollTop;
+    console.log(scroll)
+  }, true)
 })
 </script>
 
@@ -119,17 +115,22 @@ onMounted(() => {
 
     </n-space>
     <n-space vertical size="large">
+      <div style="height: 2rem"/>
       <n-space justify="space-around">
         <s-h3>所有博客</s-h3>
         <s-h3>更多>></s-h3>
       </n-space>
+      <div style="height: 2rem"/>
+
       <n-space vertical item-style="width:61.8%" wrap-item align="center" :size="88">
+        <article-text-introduce/>
+        <article-text-introduce/>
         <article-text-introduce/>
         <article-text-introduce/>
       </n-space>
 
     </n-space>
-
+    <div style="height: 10rem"/>
     <n-space style="color: #d3d3d3" justify="space-around">
       <s-h3>京ICP备10036305号-7</s-h3>
       <s-h3>京公网安备11010802022657号</s-h3>
@@ -143,6 +144,7 @@ onMounted(() => {
       </s-h3>
     </n-space>
   </n-space>
+
   <n-back-top :right="100"/>
 </template>
 
