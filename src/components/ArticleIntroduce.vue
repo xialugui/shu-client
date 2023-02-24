@@ -1,5 +1,5 @@
 <template>
-  <div style="display:flex;width:42rem;height: 14rem;justify-content: space-between">
+  <div id="container">
     <n-image src="src/assets/img1.png" width="240" style="border-radius: .5rem"/>
     <div style="display:flex;justify-content: space-between;flex-direction: column;width: 20rem">
       <n-space>
@@ -36,11 +36,19 @@
 
 </template>
 
-<script setup>
-
+<script setup lang="ts">
 import {NAvatar, NEllipsis, NImage, NSpace, NTag} from "naive-ui";
+
+/*withDefaults(defineProps<{ boxShadowStyle?: string; }>(), {
+  boxShadowStyle: "0 .5rem 1.2rem rgba(215,215,215,5)"
+});*/
 </script>
 
 <style scoped>
-
+#container {
+  display: flex;
+  width: 42rem;
+  height: 14rem;
+  justify-content: space-between;
+}
 </style>
