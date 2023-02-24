@@ -118,12 +118,12 @@ onMounted(() => {
       </div>
 
     </n-space>
-    <n-space vertical>
+    <n-space vertical size="large">
       <n-space justify="space-around">
         <s-h3>所有博客</s-h3>
         <s-h3>更多>></s-h3>
       </n-space>
-      <n-space vertical item-style="width:61.8%" wrap-item align="center">
+      <n-space vertical item-style="width:61.8%" wrap-item align="center" :size="88">
         <article-text-introduce/>
         <article-text-introduce/>
       </n-space>

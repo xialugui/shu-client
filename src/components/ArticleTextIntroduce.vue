@@ -1,12 +1,12 @@
 <template>
   <n-space vertical align="start" style="box-shadow:0 1rem 1rem whitesmoke;border-radius: 1rem;
 background-image: url('../assets/img1.png');
-"
+" size="large"
            item-style="width:100%;">
-    <div style="background-image:url('../assets/img1.png'); ">
+<!--    <div style="background-image:url('../assets/img1.png'); ">
       111111
       1
-    </div>
+    </div>-->
     <s-h2>
       <n-ellipsis line-clamp="1">
         VUE3_组件间传值的三种方法_setup语法糖_记录11231231222312312
