@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue'
-import {
-  MenuOption, NAvatar, NBackTop,
-  NButton, NCard, NDivider, NEllipsis,
-  NImage,
-  NMenu, NScrollbar,
-  NSpace, NTag, NTime
-} from "naive-ui";
+import {MenuOption, NAvatar, NBackTop, NButton, NCard, NEllipsis, NImage, NMenu, NSpace, NTag, NTime} from "naive-ui";
 import ArticleIntroduce from "./ArticleIntroduce.vue";
 import SH3 from "./SH3.vue";
 import ArticleTextIntroduce from "./ArticleTextIntroduce.vue";
+import BScroll from "@better-scroll/core";
+import PullUp from "@better-scroll/pull-up";
+import MouseWheel from "@better-scroll/mouse-wheel";
+import ScrollBar from "@better-scroll/scroll-bar";
+
+BScroll.use(MouseWheel)
+BScroll.use(PullUp)
+BScroll.use(ScrollBar)
+
 
 const activeKey = ref<string | null>(null);
 const menuOptions: MenuOption[] = [
   {
     label: '111111',
     key: 'hear-the-wind-sing',
-
   },
   {
     label: '1973年的弹珠玩具',
@@ -28,16 +30,29 @@ const menuOptions: MenuOption[] = [
   }
 ]
 const cardb = ref(null)
+
+
+function init() {
+  const scroll = new BScroll(".wrapper", {
+    mouseWheel: true,
+    scrollY: true,
+    scrollbar: true,
+    probeType: 3,
+    pullUpLoad: true
+  })
+}
+
+
 onMounted(() => {
+  init()
   cardb.value.children[0].children[0].style = "width:auto;margin-left:1rem;margin-right:1rem;box-shadow:0 .5rem 1.2rem rgba(215,215,215,5);height:25rem;border-radius: 1rem;";
-  window.addEventListener('scroll', () => {
-    let scroll = document.documentElement.scrollTop || document.body.scrollTop;
-    console.log(scroll)
-  }, true)
 })
+
 </script>
 
 <template>
+
+
   <n-space vertical>
 
     <n-space id="introduce" style="flex-direction:column;justify-content: center">
@@ -121,20 +136,29 @@ onMounted(() => {
         <s-h3>更多>></s-h3>
       </n-space>
       <div style="height: 2rem"/>
+      <div class="wrapper" style="width:61.8%;height: 70rem; overflow: hidden;margin: 0 auto;">
+        <n-space vertical wrap-item align="center" :size="88" style="padding-bottom: 12rem">
+          <article-text-introduce/>
+          <article-text-introduce/>
+          <article-text-introduce/>
+          <article-text-introduce/>
+          <article-text-introduce/>
+          <article-text-introduce/>
+          <article-text-introduce/>
+          <article-text-introduce/>
+          <article-text-introduce/>
+          <article-text-introduce/>
+        </n-space>
+      </div>
 
-      <n-space vertical item-style="width:61.8%" wrap-item align="center" :size="88">
-        <article-text-introduce/>
-        <article-text-introduce/>
-        <article-text-introduce/>
-        <article-text-introduce/>
-      </n-space>
 
     </n-space>
-    <div style="height: 10rem"/>
+
+    <div style="height: 5rem"/>
     <n-space style="color: #d3d3d3" justify="space-around">
       <s-h3>京ICP备10036305号-7</s-h3>
       <s-h3>京公网安备11010802022657号</s-h3>
-      <s-h3>隐私声明和</s-h3>
+      <s-h3>隐私声明</s-h3>
       <s-h3>Cookie法律声明</s-h3>
       <s-h3>反馈</s-h3>
       <s-h3>
@@ -144,7 +168,6 @@ onMounted(() => {
       </s-h3>
     </n-space>
   </n-space>
-
   <n-back-top :right="100"/>
 </template>
 
