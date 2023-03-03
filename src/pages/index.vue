@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue'
 import {MenuOption, NAvatar, NBackTop, NButton, NCard, NEllipsis, NImage, NMenu, NSpace, NTag, NTime} from "naive-ui";
-import ArticleIntroduce from "./ArticleIntroduce.vue";
-import SH3 from "./SH3.vue";
-import ArticleTextIntroduce from "./ArticleTextIntroduce.vue";
+import ArticleIntroduce from "../components/ArticleIntroduce.vue";
+import SH3 from "../components/SH3.vue";
+import ArticleTextIntroduce from "../components/ArticleTextIntroduce.vue";
 import BScroll from "@better-scroll/core";
 import PullUp from "@better-scroll/pull-up";
 import MouseWheel from "@better-scroll/mouse-wheel";
