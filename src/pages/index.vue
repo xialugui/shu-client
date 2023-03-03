@@ -63,9 +63,16 @@ onMounted(() => {
             src="./src/assets/logo.png"
         />
         <n-menu id="menu" v-model:value="activeKey" mode="horizontal" :options="menuOptions"/>
-        <n-button type="info" id="subscribe" size="large" round>
-          点击订阅
-        </n-button>
+        <n-space>
+          <n-button type="info" id="subscribe" size="large" round>
+            点击订阅
+          </n-button>
+          <n-button size="large" round style="font-size: large;border-radius: .8rem;">
+
+            <router-link to="/edit">编辑</router-link>
+          </n-button>
+        </n-space>
+
       </div>
       <div id="slogan">
         <div style="font-size: x-large;margin-top: 6rem">
