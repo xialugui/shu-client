@@ -16,6 +16,8 @@
 
 html {
     font-size: 12px;
+    height: 100%;
+    width: 100%;
 }
 
 a {
@@ -29,7 +31,8 @@ a:hover {
 }
 
 body {
-
+    height: 100%;
+    width: 100%;
 }
 
 h1 {
@@ -67,6 +70,8 @@ button:focus-visible {
     font-family: lxgw, sans-serif;
     font-weight: normal;
     text-align: center;
+    height: 100%;
+    width: 100%;
 }
 
 @media (prefers-color-scheme: light) {

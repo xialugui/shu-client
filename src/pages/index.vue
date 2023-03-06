@@ -65,7 +65,7 @@ onMounted(() => {
         <n-menu id="menu" v-model:value="activeKey" mode="horizontal" :options="menuOptions"/>
         <n-space>
           <n-button type="info" id="subscribe" size="large" round>
-            点击订阅
+            <router-link to="/login" style="color: white">登录</router-link>
           </n-button>
           <n-button size="large" round style="font-size: large;border-radius: .8rem;">
 
