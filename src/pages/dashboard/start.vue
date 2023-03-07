@@ -21,6 +21,12 @@ height:3rem;width: 11rem;
         </n-space>
       </n-popselect>
     </n-space>
+    <div class="wrapper" style="height: 70rem;width: 100%; overflow: hidden;margin: 0 auto;">
+      <n-space justify="space-between" vertical item-style="width:100%" align="center"
+               style="width:100%;padding-bottom: 12rem">
+        <blog-introduce>高级特性</blog-introduce>
+      </n-space>
+    </div>
   </n-space>
 </template>
 
@@ -29,7 +35,16 @@ import SH3 from "../../components/SH3.vue";
 import {NIcon, NPopselect, NSpace} from "naive-ui";
 import {ChevronDownOutline, DocumentOutline} from "@vicons/ionicons5";
 import SH4 from "../../components/SH4.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
+import BScroll from "@better-scroll/core";
+import PullUp from "@better-scroll/pull-up";
+import MouseWheel from "@better-scroll/mouse-wheel";
+import ScrollBar from "@better-scroll/scroll-bar";
+import BlogIntroduce from "../../components/BlogIntroduce.vue";
+
+BScroll.use(MouseWheel)
+BScroll.use(PullUp)
+BScroll.use(ScrollBar)
 
 const value = ref('me')
 const options = [{
@@ -40,6 +55,16 @@ const options = [{
   value: 'other'
 },
 ]
+
+onMounted(() => {
+  const scroll = new BScroll(".wrapper", {
+    mouseWheel: true,
+    scrollY: true,
+    scrollbar: true,
+    probeType: 3,
+    pullUpLoad: true
+  })
+})
 </script>
 <style scoped>
 
