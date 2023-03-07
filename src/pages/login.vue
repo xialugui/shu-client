@@ -38,10 +38,8 @@ const rules = {
   name: {
     required: true,
     message: "请输入用户名",
-    trigger:['input','blur']
+    trigger: ['input', 'blur']
   }
-
-
 }
 const user = ref({
   name: 'admin',
