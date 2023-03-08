@@ -7,6 +7,7 @@
       <s-h4>
         <slot/>
       </s-h4>
+      <n-icon :component="BrushOutline" :style="{visibility:y}"/>
     </n-space>
     <s-h4>陆龟</s-h4>
     <s-h4>
@@ -18,7 +19,7 @@
 
 <script setup lang="ts">
 
-import {DocumentTextOutline, EllipsisHorizontalOutline} from "@vicons/ionicons5";
+import {BrushOutline, DocumentTextOutline, EllipsisHorizontalOutline, PencilOutline} from "@vicons/ionicons5";
 import {NIcon, NSpace, NTime} from "naive-ui";
 import SH4 from "./SH4.vue";
 import {ref} from "vue";
@@ -32,7 +33,9 @@ const y = ref(
 #container {
   width: 100%;
   height: 5.4rem;
-  border-bottom: .1rem solid #f3f3f3;
+  /*border-bottom: .1rem solid #f3f3f3;*/
+  box-shadow: 0 .1rem 1rem -1rem #1a1a1a;
+  border-radius: 1rem;
 }
 
 #container:hover {

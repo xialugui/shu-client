@@ -66,10 +66,10 @@ button:focus-visible {
 }
 
 #app {
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     font-family: lxgw, sans-serif;
     font-weight: normal;
-    text-align: center;
+    /*text-align: center;*/
     height: 100%;
     width: 100%;
 }

@@ -4,12 +4,15 @@
       <s-h3>开始</s-h3>
     </n-space>
 
-    <n-space align="center" justify="center" item-style="display:flex" style="border: .2rem solid whitesmoke;border-radius:.5rem;
-height:3rem;width: 11rem;
-">
+    <n-space align="center" justify="center" item-style="display:flex"
+             style="box-shadow: .1rem .1rem .2rem gainsboro; width: fit-content;border-radius: .2rem;padding: .5rem 1rem">
       <n-icon :component="DocumentOutline" size="2rem"/>
-      <SH4>新建博客</SH4>
+      <s-h4>新建博客</s-h4>
     </n-space>
+    <l-button @click="router.push('/edit')">
+      <n-icon :component="DocumentOutline" size="2rem"/>
+      新建
+    </l-button>
     <n-space>
       <s-h3>博客</s-h3>
     </n-space>
@@ -25,6 +28,10 @@ height:3rem;width: 11rem;
       <n-space justify="space-between" vertical item-style="width:100%" align="center"
                style="width:100%;padding-bottom: 12rem">
         <blog-introduce>高级特性</blog-introduce>
+        <!--        <blog-introduce>高级特性</blog-introduce>
+                <blog-introduce>高级特性</blog-introduce>
+                <blog-introduce>高级特性</blog-introduce>
+                <blog-introduce>高级特性</blog-introduce>-->
       </n-space>
     </div>
   </n-space>
@@ -41,11 +48,13 @@ import PullUp from "@better-scroll/pull-up";
 import MouseWheel from "@better-scroll/mouse-wheel";
 import ScrollBar from "@better-scroll/scroll-bar";
 import BlogIntroduce from "../../components/BlogIntroduce.vue";
+import LButton from "../../components/LButton.vue";
+import {useRouter} from "vue-router";
 
 BScroll.use(MouseWheel)
 BScroll.use(PullUp)
 BScroll.use(ScrollBar)
-
+const router = useRouter()
 const value = ref('me')
 const options = [{
   label: '我',
@@ -55,6 +64,10 @@ const options = [{
   value: 'other'
 },
 ]
+
+function goToEditPage() {
+
+}
 
 onMounted(() => {
   const scroll = new BScroll(".wrapper", {
