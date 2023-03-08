@@ -8,6 +8,7 @@
       </n-space>
       <n-space id="right" align="center" item-style="display:flex;">
         <l-button>发布</l-button>
+        <l-button @click="save">保存</l-button>
         <n-icon :component="EllipsisHorizontalCircleOutline" size="2rem"/>
       </n-space>
     </n-space>
@@ -24,7 +25,7 @@
 import Vditor from "vditor";
 import {onMounted, ref} from "vue";
 import 'vditor/dist/index.css';
-import {NAffix, NIcon, NSpace} from "naive-ui";
+import {NAffix, NIcon, NSpace, useMessage} from "naive-ui";
 import {AppsOutline, EllipsisHorizontalCircleOutline} from "@vicons/ionicons5";
 import SH4 from "../components/SH4.vue";
 import LButton from "../components/LButton.vue";
@@ -42,6 +43,11 @@ onMounted(() => {
     },
   });
 });
+const message = useMessage()
+
+function save() {
+  message.info(vditor.value!.getValue());
+}
 </script>
 
 <style scoped lang="less">
