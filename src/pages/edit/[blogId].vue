@@ -27,10 +27,13 @@ import {onMounted, ref} from "vue";
 import 'vditor/dist/index.css';
 import {NAffix, NIcon, NSpace, useMessage} from "naive-ui";
 import {AppsOutline, EllipsisHorizontalCircleOutline} from "@vicons/ionicons5";
-import SH4 from "../components/SH4.vue";
-import LButton from "../components/LButton.vue";
+import SH4 from "../../components/SH4.vue";
+import LButton from "../../components/LButton.vue";
 
-const vditor = ref<Vditor | null>(null);
+const props = withDefaults(defineProps<{ blogId: string }>(), {
+  blogId: ""
+})
+const vditor = ref<Vditor | null>();
 onMounted(() => {
   vditor.value = new Vditor('vditor', {
     value: 'ir',
@@ -47,6 +50,9 @@ const message = useMessage()
 
 function save() {
   message.info(vditor.value!.getValue());
+  console.log("id", props.blogId)
+  // logger.info("id:", props.blogId)
+  // patch("",vditor.value?.getValue())
 }
 </script>
 
