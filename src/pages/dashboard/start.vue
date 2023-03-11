@@ -25,11 +25,31 @@
       </n-popselect>
     </n-space>
     <div class="wrapper" style="height: 70rem;width: 100%; overflow: hidden;margin: 0 auto;">
-      <n-space justify="space-between" vertical item-style="width:100%" align="center"
+      <n-space justify="space-between" wrap-item vertical item-style="width:100%" align="center"
                style="width:100%;padding-bottom: 12rem">
-        <li v-for="(item,index) in content ">
-          {{ item.time }} - {{ index }} - {{ item.id }} {{ item.title }}
-        </li>
+        <blog-overview v-for="item in content" :id="item.id" :title="item.title" :author="item.author.name"
+                       :time="Date.now()"/>
+        <!--        <blog-overview id="1" title="2" author="3"
+                               :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
+                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>-->
 
       </n-space>
     </div>
@@ -41,7 +61,7 @@ import SH3 from "../../components/SH3.vue";
 import {NIcon, NPopselect, NSpace, useMessage} from "naive-ui";
 import {ChevronDownOutline, DocumentOutline} from "@vicons/ionicons5";
 import SH4 from "../../components/SH4.vue";
-import {onMounted, ref} from "vue";
+import {onActivated, onMounted, ref} from "vue";
 import BScroll from "@better-scroll/core";
 import PullUp from "@better-scroll/pull-up";
 import MouseWheel from "@better-scroll/mouse-wheel";
@@ -51,11 +71,12 @@ import {useRouter} from "vue-router";
 import {get, post} from "../../utils/requests";
 import {Url} from "../../utils/urls";
 import {Page} from "../../utils/api";
+import BlogOverview from "../../components/BlogOverview.vue";
 
 
 BScroll.use(MouseWheel)
 BScroll.use(PullUp)
-BScroll.use(ScrollBar)
+// BScroll.use(ScrollBar)
 const router = useRouter()
 const value = ref('me')
 const message = useMessage()
@@ -95,12 +116,15 @@ let content = ref<Blog[]>(
 
 function createNewBlog() {
   post(Url.Blogs, {}).then((value) => {
-    // message.success("新建成功")
     router.push('/edit/' + value)
   })
 }
 
+let scroll: BScroll;
+let isPullUpLoad = true
+
 function loadBlogs() {
+  isPullUpLoad = true
   get(Url.Blogs).then(data => {
     page.value = data
 
@@ -108,19 +132,25 @@ function loadBlogs() {
     for (let blog of page.value?.content!) {
       content.value.push(blog)
     }
-    console.log("content", content)
+    scroll.finishPullUp()
+    scroll.refresh()
+    isPullUpLoad = false
   })
 }
 
 onMounted(() => {
-  const scroll = new BScroll(".wrapper", {
+  scroll = new BScroll(".wrapper", {
     mouseWheel: true,
     scrollY: true,
     scrollbar: true,
     probeType: 3,
     pullUpLoad: true
-  })
-  loadBlogs()
+  });
+  scroll.on('pullingUp', loadBlogs)
+})
+
+onActivated(() => {
+  // scroll.refresh()
 })
 </script>
 <style scoped>

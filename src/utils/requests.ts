@@ -10,9 +10,13 @@ service.defaults.transformResponse = [
     }
 ]
 service.interceptors.response.use(response => {
-    return JSON.parse(response.data);
+    if ((response.data as string).startsWith("{")) {
+        return JSON.parse(response.data)
+    } else {
+        return response.data;
+    }
 }, error => {
-    console.log("响应失败：", error)
+    console.log("响应失败：", error.message)
 })
 
 export function get(url: string): Promise<any> {

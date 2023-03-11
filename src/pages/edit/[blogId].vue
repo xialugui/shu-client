@@ -29,10 +29,10 @@ import {NAffix, NIcon, NSpace, useMessage} from "naive-ui";
 import {AppsOutline, EllipsisHorizontalCircleOutline} from "@vicons/ionicons5";
 import SH4 from "../../components/SH4.vue";
 import LButton from "../../components/LButton.vue";
+import {patch} from "../../utils/requests";
+import {Url} from "../../utils/urls";
 
-const props = withDefaults(defineProps<{ blogId: string }>(), {
-  blogId: ""
-})
+const props = withDefaults(defineProps<{ blogId: bigint }>(), {})
 const vditor = ref<Vditor | null>();
 onMounted(() => {
   vditor.value = new Vditor('vditor', {
@@ -50,9 +50,12 @@ const message = useMessage()
 
 function save() {
   message.info(vditor.value!.getValue());
-  console.log("id", props.blogId)
-  // logger.info("id:", props.blogId)
-  // patch("",vditor.value?.getValue())
+  patch(Url.Blogs, {
+    id: props.blogId,
+    content: vditor.value?.getValue()
+  }).then(() => {
+    message.success("保存成功")
+  })
 }
 </script>
 

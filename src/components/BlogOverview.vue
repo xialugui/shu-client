@@ -27,7 +27,7 @@ import {ref} from "vue";
 const y = ref(
     'hidden'
 )
-withDefaults(defineProps<{ id: string, author: string, title: string, time: number }>(), {})
+withDefaults(defineProps<{ id: bigint, author: string, title: string, time: number }>(), {})
 </script>
 
 <style scoped>
