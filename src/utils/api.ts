@@ -4,7 +4,7 @@ export interface Page<T> {
     first: boolean,
     last: boolean,
     number: number,
-    number_of_elements: 20,
+    number_of_elements: number,
     pageable: {
         offset: number,
         page_number: number,
@@ -18,6 +18,34 @@ export interface Page<T> {
     total_elements: number
     total_pages: number
 }
+
+const page = -1, size = 10
+
+export class DefaultPage<T> implements Page<T> {
+    content: T[] = [];
+    empty: boolean = true;
+    first: boolean = true;
+    last: boolean = false;
+    number: number = 1;
+    number_of_elements: number = 0;
+    pageable: {
+        offset: number; page_number: number; page_size: number; paged: boolean; sort:
+            { sorted: boolean; unsorted: boolean; empty: boolean }; unpaged: boolean
+    } = {
+        offset: 1, page_number: page, page_size: size, paged: false, sort:
+            {sorted: false, unsorted: false, empty: false}, unpaged: false
+    };
+    size: number = 10;
+    sort: { sorted: boolean; unsorted: boolean; empty: boolean } = {
+        sorted: false, unsorted: false, empty: false
+    };
+    total_elements: number = 1;
+    total_pages: number = 0;
+
+}
+
+export const pageSize = 10
+export const pageNumber = 1
 
 export const emptyPage = {
     content: [],

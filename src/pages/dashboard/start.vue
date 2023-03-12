@@ -1,58 +1,40 @@
 <template>
-  <n-space vertical align="start" item-style="width:100%">
-    <n-space>
-      <s-h3>开始</s-h3>
-    </n-space>
-
-    <!--    <n-space align="center" justify="center" item-style="display:flex"
-                 style="box-shadow: .1rem .1rem .2rem gainsboro; width: fit-content;border-radius: .2rem;padding: .5rem 1rem">
-          <n-icon :component="DocumentOutline" size="2rem"/>
-          <s-h4>新建博客</s-h4>
-        </n-space>-->
-    <l-button @click="createNewBlog">
-      <n-icon :component="DocumentOutline" size="2rem"/>
-      新建
-    </l-button>
-    <n-space>
-      <s-h3>博客</s-h3>
-    </n-space>
-    <n-space justify="end" style="width: 100%">
-      <n-popselect v-model:value="value" :options="options" trigger="click">
-        <n-space align="center" item-style="display:flex">
-          <SH4>创建者</SH4>
-          <n-icon :component="ChevronDownOutline"/>
+  <n-space vertical align="start" style="height: 100%" wrap-item item-style="width:100%">
+    <!--    <n-space>
+          <s-h3>开始</s-h3>
         </n-space>
-      </n-popselect>
-    </n-space>
-    <div class="wrapper" style="height: 70rem;width: 100%; overflow: hidden;margin: 0 auto;">
-      <n-space justify="space-between" wrap-item vertical item-style="width:100%" align="center"
-               style="width:100%;padding-bottom: 12rem">
-        <blog-overview v-for="item in content" :id="item.id" :title="item.title" :author="item.author.name"
-                       :time="Date.now()"/>
-        <!--        <blog-overview id="1" title="2" author="3"
+        <l-button @click="createNewBlog">
+          <n-icon :component="DocumentOutline" size="2rem"/>
+          新建
+        </l-button>
+        <n-space>
+          <s-h3>博客</s-h3>
+        </n-space>
+        <n-space justify="end" style="width: 100%">
+          <n-popselect v-model:value="value" :options="options" trigger="click">
+            <n-space align="center" item-style="display:flex">
+              <SH4>创建者</SH4>
+              <n-icon :component="ChevronDownOutline"/>
+            </n-space>
+          </n-popselect>
+        </n-space>-->
+    <div style="height: 100%">
+      <div class="wrapper" style="position:relative;height:30rem;width: 100%; overflow: hidden;">
+        <!--      <n-space justify="space-between" wrap-item vertical item-style="width:100%" align="center"
+                       style="width:100%;">
+                <blog-overview v-for="item in content" :id="item.id" :title="item.title" :author="item.author.name"
                                :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>
-                <blog-overview id="1" title="2" author="3" :time="Date.now()"/>-->
-
-      </n-space>
+              </n-space>-->
+        <div>
+          <!--        <blog-overview v-for="item in content" :id="item.id" :title="item.title" :author="item.author.name"
+                                 :time="Date.now()"/>-->
+          <ul>
+            <li style="height: 50px;" v-for="item in content">{{ item.title }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
+
   </n-space>
 </template>
 
@@ -70,13 +52,13 @@ import LButton from "../../components/LButton.vue";
 import {useRouter} from "vue-router";
 import {get, post} from "../../utils/requests";
 import {Url} from "../../utils/urls";
-import {Page} from "../../utils/api";
+import {DefaultPage, Page} from "../../utils/api";
 import BlogOverview from "../../components/BlogOverview.vue";
 
 
 BScroll.use(MouseWheel)
 BScroll.use(PullUp)
-// BScroll.use(ScrollBar)
+BScroll.use(ScrollBar)
 const router = useRouter()
 const value = ref('me')
 const message = useMessage()
@@ -99,7 +81,9 @@ interface Blog {
   time_info: { created_date_time: string, last_modified_date: string }
 }
 
-let page = ref<Page<Blog> | null>()
+let page = ref<Page<Blog> | null>(new DefaultPage<Blog>())
+
+
 let content = ref<Blog[]>(
     [
       {
@@ -114,6 +98,7 @@ let content = ref<Blog[]>(
     ]
 )
 
+
 function createNewBlog() {
   post(Url.Blogs, {}).then((value) => {
     router.push('/edit/' + value)
@@ -121,14 +106,15 @@ function createNewBlog() {
 }
 
 let scroll: BScroll;
-let isPullUpLoad = true
+let isPullUpLoad = false
 
 function loadBlogs() {
-  isPullUpLoad = true
-  get(Url.Blogs).then(data => {
+  if (page.value?.last) {
+    return
+  }
+  isPullUpLoad = true;
+  get(Url.Blogs + "?size=" + page.value?.pageable.page_size + "&page=" + (page.value?.pageable.page_number! + 1)).then(data => {
     page.value = data
-
-    console.log("page content:", page.value?.content)
     for (let blog of page.value?.content!) {
       content.value.push(blog)
     }
@@ -136,6 +122,7 @@ function loadBlogs() {
     scroll.refresh()
     isPullUpLoad = false
   })
+  scroll.refresh()
 }
 
 onMounted(() => {
@@ -146,12 +133,15 @@ onMounted(() => {
     probeType: 3,
     pullUpLoad: true
   });
+  initBlogs()
   scroll.on('pullingUp', loadBlogs)
 })
 
-onActivated(() => {
-  // scroll.refresh()
-})
+function initBlogs() {
+  content.value = []
+  loadBlogs()
+}
+
 </script>
 <style scoped>
 
