@@ -4,10 +4,10 @@
            @mouseout="hover='hidden'">
     <n-space align="center" item-style="display:flex">
       <n-icon :component="DocumentTextOutline" size="2rem"/>
-      <s-h4 id="title" @click="">
+      <s-h4 id="title" @click="edit(id)">
         {{ title }}
       </s-h4>
-      <n-icon id="edit" :component="BrushOutline" :style="{visibility:hover}"/>
+      <n-icon id="edit" @click="edit(id)" :component="BrushOutline" :style="{visibility:hover}"/>
     </n-space>
     <s-h4>{{ author }}</s-h4>
     <s-h4>
@@ -23,15 +23,17 @@ import {BrushOutline, DocumentTextOutline, EllipsisHorizontalOutline} from "@vic
 import {NIcon, NSpace, NTime} from "naive-ui";
 import SH4 from "./SH4.vue";
 import {ref} from "vue";
+import {useRouter} from "vue-router";
 
+const router = useRouter()
 const hover = ref(
     'hidden'
 )
 withDefaults(defineProps<{ id: bigint, author: string, title: string, time: number }>(), {})
 
 
-function edit() {
-
+function edit(id: bigint) {
+  router.push("/edit/" + id)
 }
 </script>
 

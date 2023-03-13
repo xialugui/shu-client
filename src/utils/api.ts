@@ -19,7 +19,7 @@ export interface Page<T> {
     total_pages: number
 }
 
-const page = -1, size = 10
+const page = -1, size = 15
 
 export class DefaultPage<T> implements Page<T> {
     content: T[] = [];

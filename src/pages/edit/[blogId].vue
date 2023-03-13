@@ -29,11 +29,24 @@ import {NAffix, NIcon, NSpace, useMessage} from "naive-ui";
 import {AppsOutline, EllipsisHorizontalCircleOutline} from "@vicons/ionicons5";
 import SH4 from "../../components/SH4.vue";
 import LButton from "../../components/LButton.vue";
-import {patch} from "../../utils/requests";
+import {get, patch} from "../../utils/requests";
 import {Url} from "../../utils/urls";
 
 const props = withDefaults(defineProps<{ blogId: bigint }>(), {})
 const vditor = ref<Vditor | null>();
+
+interface Blog {
+  title: string,
+  author: {
+    id: bigint,
+    name: string
+  },
+  content: string,
+  id: bigint
+  time_info: { created_date_time: string, last_modified_date: string }
+}
+
+const blog = ref<Blog>()
 onMounted(() => {
   vditor.value = new Vditor('vditor', {
     value: 'ir',
@@ -41,10 +54,17 @@ onMounted(() => {
       "pin": true
     },
     after: () => {
-      // vditor.value is a instance of Vditor now and thus can be safely used here
-      vditor.value!.setValue('Vue Composition API + Vditor + TypeScript Minimal Example');
+      load(props.blogId)
     },
   });
+
+  function load(id: bigint) {
+    console.log("id" + id)
+    get(Url.Blogs + "/" + id).then(data => {
+      blog.value = data
+      vditor.value!.setValue(blog.value?.content!);
+    })
+  }
 });
 const message = useMessage()
 
