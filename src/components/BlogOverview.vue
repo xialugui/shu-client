@@ -1,19 +1,19 @@
 <template>
   <n-space id="container" style="" align="center" justify="space-between" item-style="display:flex"
-           @mouseover="y='visible'"
-           @mouseout="y='hidden'">
+           @mouseover="hover='visible'"
+           @mouseout="hover='hidden'">
     <n-space align="center" item-style="display:flex">
       <n-icon :component="DocumentTextOutline" size="2rem"/>
-      <s-h4>
+      <s-h4 id="title" @click="">
         {{ title }}
       </s-h4>
-      <n-icon :component="BrushOutline" :style="{visibility:y}"/>
+      <n-icon id="edit" :component="BrushOutline" :style="{visibility:hover}"/>
     </n-space>
     <s-h4>{{ author }}</s-h4>
     <s-h4>
       <n-time type="datetime" format="MM-dd HH:mm" :time="time"/>
     </s-h4>
-    <n-icon :component="EllipsisHorizontalOutline" :style="{visibility: y}"/>
+    <n-icon id="more" :component="EllipsisHorizontalOutline" :style="{visibility: hover}"/>
   </n-space>
 </template>
 
@@ -24,10 +24,15 @@ import {NIcon, NSpace, NTime} from "naive-ui";
 import SH4 from "./SH4.vue";
 import {ref} from "vue";
 
-const y = ref(
+const hover = ref(
     'hidden'
 )
 withDefaults(defineProps<{ id: bigint, author: string, title: string, time: number }>(), {})
+
+
+function edit() {
+
+}
 </script>
 
 <style scoped>
@@ -41,4 +46,9 @@ withDefaults(defineProps<{ id: bigint, author: string, title: string, time: numb
 #container:hover {
   background-color: #fafafa;
 }
+
+#title:hover, #edit:hover, #more:hover {
+  cursor: pointer;
+}
+
 </style>

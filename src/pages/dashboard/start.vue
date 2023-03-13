@@ -1,59 +1,60 @@
 <template>
-  <n-space vertical align="start" style="height: 100%" wrap-item item-style="width:100%">
-    <!--    <n-space>
-          <s-h3>开始</s-h3>
+  <n-space vertical align="start" style="height: 100%;padding: 0 3rem" wrap-item item-style="width:100%" size="large">
+    <div style="height: 3rem"/>
+    <n-space vertical>
+      <s-h3>开始</s-h3>
+    </n-space>
+    <l-button @click="createNewBlog">
+      <n-icon :component="DocumentOutline" size="2rem"/>
+      新建
+    </l-button>
+    <n-space>
+      <s-h3>博客</s-h3>
+    </n-space>
+    <n-space justify="end" style="width: 100%">
+      <n-popselect v-model:value="value" :options="options" trigger="click">
+        <n-space align="center" item-style="display:flex">
+          <s-h4>创建者</s-h4>
+          <n-icon :component="ChevronDownOutline"/>
         </n-space>
-        <l-button @click="createNewBlog">
-          <n-icon :component="DocumentOutline" size="2rem"/>
-          新建
-        </l-button>
-        <n-space>
-          <s-h3>博客</s-h3>
+      </n-popselect>
+    </n-space>
+    <n-space vertical class="wrapper"
+             style="position:relative;min-height:10rem;height:65rem;width: 100%; overflow: hidden;">
+      <div>
+        <blog-overview v-for="item in content" :id="item.id" :title="item.title" :author="item.author.name"
+                       :time="Date.now()"/>
+        <n-space align="center" justify="center">
+          <s-h4 v-if="!isPullUpLoad">
+            下拉加载更多
+          </s-h4>
+          <s-h4 v-else>
+            加载中...
+          </s-h4>
         </n-space>
-        <n-space justify="end" style="width: 100%">
-          <n-popselect v-model:value="value" :options="options" trigger="click">
-            <n-space align="center" item-style="display:flex">
-              <SH4>创建者</SH4>
-              <n-icon :component="ChevronDownOutline"/>
-            </n-space>
-          </n-popselect>
-        </n-space>-->
-    <div style="height: 100%">
-      <div class="wrapper" style="position:relative;height:30rem;width: 100%; overflow: hidden;">
-        <!--      <n-space justify="space-between" wrap-item vertical item-style="width:100%" align="center"
-                       style="width:100%;">
-                <blog-overview v-for="item in content" :id="item.id" :title="item.title" :author="item.author.name"
-                               :time="Date.now()"/>
-              </n-space>-->
-        <div>
-          <!--        <blog-overview v-for="item in content" :id="item.id" :title="item.title" :author="item.author.name"
-                                 :time="Date.now()"/>-->
-          <ul>
-            <li style="height: 50px;" v-for="item in content">{{ item.title }}</li>
-          </ul>
-        </div>
       </div>
-    </div>
+
+    </n-space>
 
   </n-space>
 </template>
 
 <script setup lang="ts">
-import SH3 from "../../components/SH3.vue";
 import {NIcon, NPopselect, NSpace, useMessage} from "naive-ui";
-import {ChevronDownOutline, DocumentOutline} from "@vicons/ionicons5";
-import SH4 from "../../components/SH4.vue";
-import {onActivated, onMounted, ref} from "vue";
+import {onMounted, ref} from "vue";
 import BScroll from "@better-scroll/core";
 import PullUp from "@better-scroll/pull-up";
 import MouseWheel from "@better-scroll/mouse-wheel";
 import ScrollBar from "@better-scroll/scroll-bar";
-import LButton from "../../components/LButton.vue";
 import {useRouter} from "vue-router";
 import {get, post} from "../../utils/requests";
 import {Url} from "../../utils/urls";
 import {DefaultPage, Page} from "../../utils/api";
 import BlogOverview from "../../components/BlogOverview.vue";
+import SH3 from "../../components/SH3.vue";
+import LButton from "../../components/LButton.vue";
+import SH4 from "../../components/SH4.vue";
+import {ChevronDownOutline, DocumentOutline} from "@vicons/ionicons5";
 
 
 BScroll.use(MouseWheel)
@@ -81,22 +82,10 @@ interface Blog {
   time_info: { created_date_time: string, last_modified_date: string }
 }
 
-let page = ref<Page<Blog> | null>(new DefaultPage<Blog>())
+let page = ref<Page<Blog>>(new DefaultPage<Blog>())
 
 
-let content = ref<Blog[]>(
-    [
-      {
-        title: "1",
-        author: {
-          id: BigInt(1634069272160985012),
-          name: "1"
-        },
-        id: BigInt(1634069272160985012),
-        time_info: {created_date_time: "2023-03-10T13:50:48.680814", last_modified_date: "2023-03-10T13:50:48.680814"}
-      }
-    ]
-)
+let content = ref<Blog[]>([])
 
 
 function createNewBlog() {
@@ -106,23 +95,22 @@ function createNewBlog() {
 }
 
 let scroll: BScroll;
-let isPullUpLoad = false
+let isPullUpLoad = ref(false);
 
-function loadBlogs() {
-  if (page.value?.last) {
-    return
-  }
-  isPullUpLoad = true;
-  get(Url.Blogs + "?size=" + page.value?.pageable.page_size + "&page=" + (page.value?.pageable.page_number! + 1)).then(data => {
-    page.value = data
-    for (let blog of page.value?.content!) {
-      content.value.push(blog)
-    }
-    scroll.finishPullUp()
-    scroll.refresh()
-    isPullUpLoad = false
-  })
+async function loadBlogs() {
+  isPullUpLoad.value = true;
+  await loadBlogRequest();
+  scroll.finishPullUp()
   scroll.refresh()
+  isPullUpLoad.value = false
+}
+
+
+async function loadBlogRequest() {
+  page.value = await get(Url.Blogs + "?size=" + page.value?.pageable.page_size + "&page=" + (page.value?.pageable.page_number! + 1))
+  for (let blog of page.value?.content!) {
+    content.value.push(blog)
+  }
 }
 
 onMounted(() => {
@@ -133,16 +121,15 @@ onMounted(() => {
     probeType: 3,
     pullUpLoad: true
   });
-  initBlogs()
   scroll.on('pullingUp', loadBlogs)
-})
-
-function initBlogs() {
-  content.value = []
   loadBlogs()
-}
+})
 
 </script>
 <style scoped>
-
+.pullup-tips {
+  padding: 20px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.8)
+}
 </style>
