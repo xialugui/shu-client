@@ -127,9 +127,4 @@ onMounted(() => {
 
 </script>
 <style scoped>
-.pullup-tips {
-  padding: 20px;
-  text-align: center;
-  color: rgba(0, 0, 0, 0.8)
-}
 </style>

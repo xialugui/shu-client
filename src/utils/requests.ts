@@ -1,4 +1,5 @@
 import axios from "axios";
+import jsonBigint from 'json-bigint';
 
 const service = axios.create({
     headers: {"Content-Type": "application/json;charset=utf-8"},
@@ -11,7 +12,7 @@ service.defaults.transformResponse = [
 ]
 service.interceptors.response.use(response => {
     if ((response.data as string).startsWith("{")) {
-        return JSON.parse(response.data)
+        return jsonBigint.parse(response.data);
     } else {
         return response.data;
     }
