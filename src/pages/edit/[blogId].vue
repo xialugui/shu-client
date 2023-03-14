@@ -1,18 +1,22 @@
 <template>
   <n-affix :trigger-top="0" :top="0" position="fix"
-           style="height: 5rem;width:100%;z-index: 999;border-bottom: .1rem solid rgba(0,0,0,0.05)">
-    <n-space style="height: 100%;width:100%;background-color: white" align="center" justify="space-between">
-      <n-space id="left" align="center" item-style="display:flex;">
+           style="height: 5rem;width:100%;z-index: 999;border-bottom: .1rem solid rgba(0,0,0,0.05);">
+    <n-space style="height: 100%;width:100%;background-color: white;" align="center" justify="space-between">
+      <n-space id="left" align="center" item-style="display:flex;" style="padding: 0 2rem">
         <n-icon :component="AppsOutline"/>
+        <n-divider vertical />
         <n-input autosize round v-model:value="blog.title" default-value="无标题" maxlength="100"
                  style="border-radius: 1rem;--n-border: 0;--n-border-hover: 1px solid var(--blue);
-    --n-border-focus:1px solid var(--blue);--n-caret-color:var(--blue);--n-loading-color:var(--blue);font-size: large;font-weight: bold;line-height: initial "
+    --n-border-focus:1px solid var(--blue);--n-caret-color:var(--blue);--n-loading-color:var(--blue);
+    font-size: large;"
                  placeholder="请输入标题" :on-change="onTitleUpdate"/>
       </n-space>
+
       <n-space id="right" align="center" item-style="display:flex;">
         <!--        <l-button>发布</l-button>-->
         <l-button @click="update">更新</l-button>
         <n-icon :component="EllipsisHorizontalCircleOutline" size="2rem"/>
+
       </n-space>
     </n-space>
   </n-affix>
@@ -28,7 +32,7 @@
 import Vditor from "vditor";
 import {onMounted, ref} from "vue";
 import 'vditor/dist/index.css';
-import {NAffix, NIcon, NInput, NSpace, useMessage} from "naive-ui";
+import {NAffix, NDivider, NIcon, NInput, NSpace, useMessage} from "naive-ui";
 import {AppsOutline, EllipsisHorizontalCircleOutline} from "@vicons/ionicons5";
 import LButton from "../../components/LButton.vue";
 import {get, patch} from "../../utils/requests";
