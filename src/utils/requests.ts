@@ -1,4 +1,5 @@
 import axios from "axios";
+// @ts-ignore
 import jsonBigint from 'json-bigint';
 
 const service = axios.create({

@@ -1,16 +1,6 @@
-import winston from "winston";
+import {inject} from "vue";
+import {Log} from "vuejs3-logger";
 
-const logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.json(),
-    transports: [
-        new winston.transports.File({filename: 'error.log', level: 'error'}),
-        new winston.transports.File({filename: 'combined.log'}),
-    ],
-})
-if (!import.meta.env.PROD) {
-    logger.add(new winston.transports.Console({
-        format: winston.format.simple(),
-    }));
+export function useLogger(): Log {
+    return inject<Log>('vuejs3-logger')!;
 }
-export default logger

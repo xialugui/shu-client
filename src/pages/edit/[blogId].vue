@@ -4,11 +4,11 @@
     <n-space style="height: 100%;width:100%;background-color: white" align="center" justify="space-between">
       <n-space id="left" align="center" item-style="display:flex;">
         <n-icon :component="AppsOutline"/>
-        <s-h4>无标题</s-h4>
+        <s-h4>{{ blog.title }}</s-h4>
       </n-space>
       <n-space id="right" align="center" item-style="display:flex;">
-        <l-button>发布</l-button>
-        <l-button @click="save">保存</l-button>
+        <!--        <l-button>发布</l-button>-->
+        <l-button @click="update">更新</l-button>
         <n-icon :component="EllipsisHorizontalCircleOutline" size="2rem"/>
       </n-space>
     </n-space>
@@ -31,7 +31,10 @@ import SH4 from "../../components/SH4.vue";
 import LButton from "../../components/LButton.vue";
 import {get, patch} from "../../utils/requests";
 import {Url} from "../../utils/urls";
+import {useLogger} from "../../utils/logger";
+import useHotkey, {HotKey} from "vue3-hotkey";
 
+const logger = useLogger()
 const props = withDefaults(defineProps<{ blogId: bigint }>(), {})
 const vditor = ref<Vditor | null>();
 
@@ -59,7 +62,7 @@ onMounted(() => {
   });
 
   function load(id: bigint) {
-    console.log("id" + id)
+    logger.debug("博客id为：", id)
     get(Url.Blogs + "/" + id).then(data => {
       blog.value = data
       vditor.value!.setValue(blog.value?.content!);
@@ -68,15 +71,26 @@ onMounted(() => {
 });
 const message = useMessage()
 
-function save() {
-  message.info(vditor.value!.getValue());
+function update() {
   patch(Url.Blogs, {
     id: props.blogId,
     content: vditor.value?.getValue()
   }).then(() => {
-    message.success("保存成功")
+    message.success("博客已更新")
   })
 }
+
+const hotkeys = ref<HotKey[]>([
+  {
+    keys: ['ctrl', 's'],
+    preventDefault: true,
+    handler(keys) {
+      logger.debug("按下更新按钮：", keys);
+      update()
+    }
+  }
+])
+useHotkey(hotkeys.value)
 </script>
 
 <style scoped lang="less">
