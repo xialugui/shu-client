@@ -4,7 +4,10 @@
     <n-space style="height: 100%;width:100%;background-color: white" align="center" justify="space-between">
       <n-space id="left" align="center" item-style="display:flex;">
         <n-icon :component="AppsOutline"/>
-        <s-h4>{{ blog.title }}</s-h4>
+        <n-input autosize round v-model:value="blog.title" default-value="无标题" maxlength="100"
+                 style="border-radius: 1rem;--n-border: 0;--n-border-hover: 1px solid var(--blue);
+    --n-border-focus:1px solid var(--blue);--n-caret-color:var(--blue);--n-loading-color:var(--blue);font-size: large;font-weight: bold;line-height: initial "
+                 placeholder="请输入标题" :on-change="onTitleUpdate"/>
       </n-space>
       <n-space id="right" align="center" item-style="display:flex;">
         <!--        <l-button>发布</l-button>-->
@@ -25,9 +28,8 @@
 import Vditor from "vditor";
 import {onMounted, ref} from "vue";
 import 'vditor/dist/index.css';
-import {NAffix, NIcon, NSpace, useMessage} from "naive-ui";
+import {NAffix, NIcon, NInput, NSpace, useMessage} from "naive-ui";
 import {AppsOutline, EllipsisHorizontalCircleOutline} from "@vicons/ionicons5";
-import SH4 from "../../components/SH4.vue";
 import LButton from "../../components/LButton.vue";
 import {get, patch} from "../../utils/requests";
 import {Url} from "../../utils/urls";
@@ -63,7 +65,7 @@ onMounted(() => {
 
   function load(id: bigint) {
     logger.debug("博客id为：", id)
-    get(Url.Blogs + "/" + id).then(data => {
+    get(`${Url.Blogs}/${id}`).then(data => {
       blog.value = data
       vditor.value!.setValue(blog.value?.content!);
     })
@@ -72,11 +74,19 @@ onMounted(() => {
 const message = useMessage()
 
 function update() {
-  patch(Url.Blogs, {
-    id: props.blogId,
+  patch(`${Url.Blogs}/${blog.value?.id}/content`, {
     content: vditor.value?.getValue()
   }).then(() => {
     message.success("博客已更新")
+  })
+}
+
+function onTitleUpdate() {
+  logger.debug("标题改变：", blog.value?.title)
+  patch(`${Url.Blogs}/${blog.value?.id}/title`, {
+    title: blog.value?.title
+  }).then(() => {
+    logger.debug("标题已更新", blog.value?.title)
   })
 }
 
