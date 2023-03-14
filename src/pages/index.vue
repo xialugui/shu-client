@@ -56,8 +56,8 @@ onMounted(() => {
   <n-space vertical>
 
     <n-space id="introduce" style="flex-direction:column;justify-content: center">
-      <div id="navigator">
-        <n-image
+      <n-space item-style="display:flex" justify="space-around">
+        <n-image preview-disabled
             width="50"
             height="50"
             src="./src/assets/logo.png"
@@ -73,7 +73,7 @@ onMounted(() => {
           </n-button>
         </n-space>
 
-      </div>
+      </n-space>
       <div id="slogan">
         <div style="font-size: x-large;margin-top: 6rem">
           shu
@@ -194,16 +194,7 @@ onMounted(() => {
   font-weight: bold;
 }
 
-#navigator {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-
 #introduce {
-  padding-left: 2rem;
-  padding-right: 2rem;
   background-image: url("../assets/mouse.png");
   height: 90rem;
 }
