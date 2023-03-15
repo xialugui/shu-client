@@ -12,7 +12,8 @@ service.defaults.transformResponse = [
     }
 ]
 service.interceptors.response.use(response => {
-    if ((response.data as string).startsWith("{")) {
+    let data = response.data as string;
+    if (data.startsWith("{") || data.startsWith("[")) {
         return jsonBigint.parse(response.data);
     } else {
         return response.data;

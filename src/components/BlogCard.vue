@@ -8,11 +8,11 @@
       <n-image src="./src/assets/img1.png" style="height: 100%;" preview-disabled/>
     </template>
     <template #header>
-      <blog-card-header/>
+      <blog-card-header :time="0" topic="123456"/>
     </template>
-    <blog-card-content/>
+    <blog-card-content content="111"/>
     <template #footer>
-      <blog-card-footer/>
+      <blog-card-footer avatar="111" name="111" :time="1"/>
     </template>
   </n-card>
 </template>
@@ -21,7 +21,17 @@
 import {NCard, NImage} from "naive-ui";
 import BlogCardHeader from "./BlogCardHeader.vue";
 import BlogCardContent from "./BlogCardContent.vue";
-import BlogCardFooter from "./BlogCardFooter.vue";</script>
+import BlogCardFooter from "./BlogCardFooter.vue";
+
+withDefaults(defineProps<{
+  cover: string, topic: string, content: string, author: {
+    id: bigint,
+    name: string,
+    avatar: string
+  }
+}>(), {})
+</script>
+
 
 <style scoped>
 :deep(.n-card-cover) {

@@ -2,9 +2,9 @@
   <n-space>
     <n-image src="src/assets/img1.png" width="240" style="border-radius: .5rem;height: 100%" preview-disabled/>
     <n-space vertical style="width: 20rem">
-      <blog-card-header/>
-      <blog-card-content style="font-size: x-large"/>
-      <blog-card-footer size="small"/>
+      <blog-card-header :time="0" topic="1111"/>
+      <blog-card-content content="11111" style="font-size: x-large"/>
+      <blog-card-footer size="small" avatar="111" name="11" :time="1"/>
     </n-space>
   </n-space>
 </template>

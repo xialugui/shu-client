@@ -10,9 +10,13 @@
 </template>
 
 <script setup lang="ts">
-
 import {NSpace, NTag} from "naive-ui";
-import SH5 from "./SH5.vue";</script>
+import SH5 from "./SH5.vue";
+
+withDefaults(defineProps<{
+  topic: string, time: number
+}>(), {})
+</script>
 
 <style scoped>
 
