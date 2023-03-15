@@ -186,11 +186,6 @@ onMounted(() => {
 </template>
 
 <style scoped lang="less">
-:deep(.n-card-cover) {
-  box-shadow: 0 1rem 10rem rgba(0, 0, 0, .15);
-  height: 25rem;
-  border-radius: 1rem;
-}
 
 #subscribe {
   background-color: #4946ff;
