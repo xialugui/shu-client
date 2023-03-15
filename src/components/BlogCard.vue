@@ -1,6 +1,6 @@
 <template>
-  <n-card :bordered="true"
-          style="border-width: .2rem;border-color: black;padding:.8rem 0;border-radius: .5rem;width: 40rem;"
+  <n-card :bordered="true" size="medium"
+          style="border-width: .2rem;border-color: black;border-radius: .5rem;width: 40rem;"
           content-style="display:flex;text-align: left;font-weight:bold;font-size:xx-large"
           footer-style="display:flex;justify-content: left;"
   >
@@ -8,12 +8,12 @@
       <n-image src="./src/assets/img1.png" style="height: 100%;"/>
     </template>
     <template #header>
-      <n-space>
+      <n-space size="large">
         <n-tag round :bordered="false" style="background-color: black;color: white">
-          类型
+          <s-h5>类型</s-h5>
         </n-tag>
-        <n-tag :bordered="false" :color="{color: 'white'}">
-          时间
+        <n-tag :bordered="false" :color="{color: 'transparent',textColor:'black'}">
+          <s-h5>时间</s-h5>
         </n-tag>
       </n-space>
     </template>
@@ -23,27 +23,27 @@
     </n-ellipsis>
 
     <template #footer>
-      <n-space style="height: 5rem">
+      <n-space item-style="display:flex">
         <n-avatar
             bordered
             style="border-style: solid;border-color: black;"
             round
-            :size="60"
+            size="large"
             src="../src/assets/logo.png"
         />
-        <div
-            style="display: flex;flex-direction: column;align-items: flex-start;justify-content: center;height: 100%;">
-          <div style="font-weight:bold;font-size:large;">陆龟</div>
-          <div style="color: #adadad;">二〇二三年二月二十一日</div>
-        </div>
-
+        <n-space vertical justify="center" style="height: 100%;">
+          <s-h3>陆龟</s-h3>
+          <s-h5 style="color:#adadad ">二〇二三年二月二十一日</s-h5>
+        </n-space>
       </n-space>
     </template>
   </n-card>
 </template>
 
 <script setup lang="ts">
-import {NAvatar, NCard, NEllipsis, NImage, NSpace, NTag} from "naive-ui";</script>
+import {NAvatar, NCard, NEllipsis, NImage, NSpace, NTag} from "naive-ui";
+import SH3 from "./SH3.vue";
+import SH5 from "./SH5.vue";</script>
 
 <style scoped>
 

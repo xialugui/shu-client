@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref} from 'vue'
-import {MenuOption, NAvatar, NBackTop, NButton, NCard, NEllipsis, NImage, NMenu, NSpace, NTag, NTime} from "naive-ui";
-import ArticleIntroduce from "../components/ArticleIntroduce.vue";
+import {MenuOption, NBackTop, NButton, NImage, NMenu, NSpace, NTime} from "naive-ui";
 import SH3 from "../components/SH3.vue";
 import ArticleTextIntroduce from "../components/ArticleTextIntroduce.vue";
 import BScroll from "@better-scroll/core";
@@ -11,6 +10,7 @@ import ScrollBar from "@better-scroll/scroll-bar";
 import SH2 from "../components/SH2.vue";
 import SH1 from "../components/SH1.vue";
 import BlogCard from "../components/BlogCard.vue";
+import BlogSmallCard from "../components/BlogSmallCard.vue";
 
 BScroll.use(MouseWheel)
 BScroll.use(PullUp)
@@ -84,12 +84,12 @@ onMounted(() => {
           一个有点意思的博客，不妨试试！
         </s-h3>
       </n-space>
-      <n-space>
+      <n-space justify="center" size="large">
         <blog-card/>
-        <n-space vertical justify="space-between" align="center">
-          <article-introduce/>
-          <article-introduce/>
-          <article-introduce/>
+        <n-space vertical justify="space-around" align="center" style="height: 100%">
+          <blog-small-card/>
+          <blog-small-card/>
+          <blog-small-card/>
         </n-space>
       </n-space>
       <!--      <div id="selected-articles" style="display:flex;margin:0 auto;width: 84rem;justify-content: space-between"
