@@ -24,16 +24,16 @@ import {MenuOption, NButton, NImage, NMenu, NSpace} from "naive-ui";
 const activeKey = ref<string | null>(null);
 const menuOptions: MenuOption[] = [
   {
-    label: '111111',
-    key: 'hear-the-wind-sing',
+    label: 'Gitee',
+    key: 'gitee',
   },
   {
-    label: '1973年的弹珠玩具',
-    key: 'pinball-1973',
+    label: 'Github',
+    key: 'github',
   },
   {
-    label: '寻羊冒险记',
-    key: 'a-wild-sheep-chase',
+    label: '插件',
+    key: 'plugin',
   }
 ]</script>
 
