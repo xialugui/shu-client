@@ -5,7 +5,7 @@
           footer-style="display:flex;justify-content: left;"
   >
     <template #cover>
-      <n-image src="./src/assets/img1.png" style="height: 100%;"/>
+      <n-image src="./src/assets/img1.png" style="height: 100%;" preview-disabled/>
     </template>
     <template #header>
       <blog-card-header/>

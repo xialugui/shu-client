@@ -1,6 +1,6 @@
 <template>
   <n-space>
-    <n-image src="src/assets/img1.png" width="240" style="border-radius: .5rem;height: 100%"/>
+    <n-image src="src/assets/img1.png" width="240" style="border-radius: .5rem;height: 100%" preview-disabled/>
     <n-space vertical style="width: 20rem">
       <blog-card-header/>
       <blog-card-content style="font-size: x-large"/>
