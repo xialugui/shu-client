@@ -1,5 +1,5 @@
 <template>
-  <n-space vertical justify="space-around" align="center" size="large">
+  <n-space vertical justify="space-around" align="center" size="large" id="container">
     <s-h1>
       shu
     </s-h1>
@@ -23,5 +23,7 @@ import SH2 from "./SH2.vue";
 import SH3 from "./SH3.vue";</script>
 
 <style scoped>
-
+#container{
+  padding: 5rem 0;
+}
 </style>
