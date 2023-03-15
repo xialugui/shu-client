@@ -8,6 +8,8 @@ import BScroll from "@better-scroll/core";
 import PullUp from "@better-scroll/pull-up";
 import MouseWheel from "@better-scroll/mouse-wheel";
 import ScrollBar from "@better-scroll/scroll-bar";
+import SH2 from "../components/SH2.vue";
+import SH1 from "../components/SH1.vue";
 
 BScroll.use(MouseWheel)
 BScroll.use(PullUp)
@@ -51,16 +53,13 @@ onMounted(() => {
 </script>
 
 <template>
-
-
   <n-space vertical>
-
-    <n-space id="introduce" style="flex-direction:column;justify-content: center">
+    <n-space id="introduce" vertical size="large">
       <n-space item-style="display:flex" justify="space-around">
         <n-image preview-disabled
-            width="50"
-            height="50"
-            src="./src/assets/logo.png"
+                 width="50"
+                 height="50"
+                 src="./src/assets/logo.png"
         />
         <n-menu id="menu" v-model:value="activeKey" mode="horizontal" :options="menuOptions"/>
         <n-space>
@@ -68,23 +67,21 @@ onMounted(() => {
             <router-link to="/login" style="color: white">登录</router-link>
           </n-button>
           <n-button size="large" round style="font-size: large;border-radius: .8rem;">
-
-            <router-link to="/edit">编辑</router-link>
+            <router-link to="/dashboard/start">编辑</router-link>
           </n-button>
         </n-space>
-
       </n-space>
-      <div id="slogan">
-        <div style="font-size: x-large;margin-top: 6rem">
+      <n-space vertical justify="space-around" align="center" size="large">
+        <s-h3>
           shu
-        </div>
-        <div style="font-size: xx-large;font-weight: bold;margin-top: 2rem;margin-bottom: 2rem">
-          <span style="font-size: xxx-large">鼠</span>牛虎兔龙蛇马羊猴鸡狗猪
-        </div>
-        <div style="font-size: x-large;color: #adadad;padding-bottom: 6rem">
+        </s-h3>
+        <s-h2>
+          <s-h1 style="display: inline-flex">鼠</s-h1>牛虎兔龙蛇马羊猴鸡狗猪
+        </s-h2>
+        <s-h3 style="color:#adadad ">
           一个有点意思的博客，不妨试试！
-        </div>
-      </div>
+        </s-h3>
+      </n-space>
       <div id="selected-articles" style="display:flex;margin:0 auto;width: 84rem;justify-content: space-between"
            ref="cardb">
         <n-card :bordered="true"
@@ -196,6 +193,6 @@ onMounted(() => {
 
 #introduce {
   background-image: url("../assets/mouse.png");
-  height: 90rem;
+  /*height: 90rem;*/
 }
 </style>
