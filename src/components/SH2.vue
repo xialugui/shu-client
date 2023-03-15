@@ -1,7 +1,7 @@
 <template>
-  <div style="font-size: xx-large;font-weight: bold;display: flex">
+  <span style="font-size: xx-large;font-weight: bold;line-height: initial">
     <slot/>
-  </div>
+  </span>
 </template>
 
 <script setup lang="ts">
