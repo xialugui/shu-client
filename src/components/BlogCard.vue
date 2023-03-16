@@ -50,7 +50,7 @@ onMounted(() => {
   width: auto;
   margin: 1rem 1rem 1rem 1rem;
   box-shadow: 0 1rem 10rem rgba(0, 0, 0, .3);
-  height: 25rem;
+  height: 30rem;
   border-radius: 1rem;
 }
 

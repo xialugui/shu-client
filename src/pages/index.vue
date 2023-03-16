@@ -42,13 +42,13 @@ const previewCard: Card = {
   title: "丙寅天津竹枝词",
   content: "俗尚原无理可推，人情大半为求财。\n谷糠未引钱龙至， 鼠猬先驮宝藏来。",
   cover: "",
-  topic: {name: "Spring"},
+  topic: {name: "鼠鼠"},
   author: {
     id: BigInt(1),
     name: "冯文洵",
     avatar: "string",
   },
-  time_info: {created_date_time: Date.now(), last_modified_date: Date.now()}
+  time_info: {created_date_time: Date.now().toString(), last_modified_date: `${Date.now()}`}
 }
 
 function loadBlogCards() {
@@ -81,10 +81,10 @@ function putPreviewCardsIfNotPresent(cards: Card[]) {
       <s-navigator/>
       <s-slogan/>
       <n-space justify="center" size="large">
-        <blog-card :key="card.id" :author="card.author" :content="card.content" :cover="card.cover" :topic="card.topic"
+        <blog-card style="width: 45rem;" :key="card.id" :author="card.author" :content="card.content" :cover="card.cover" :topic="card.topic"
                    :time="new Date(card.time_info.last_modified_date).getTime()" :title="card.title"/>
         <n-space vertical justify="space-around" align="center" style="height: 100%">
-          <blog-small-card v-for="smallCard in smallCards" :key="smallCard.id" :author="smallCard.author"
+          <blog-small-card style="width: 50rem;height: 15rem" v-for="smallCard in smallCards" :key="smallCard.id" :author="smallCard.author"
                            :content="smallCard.content"
                            :cover="smallCard.cover" :topic="smallCard.topic"
                            :time="new Date(smallCard.time_info.last_modified_date).getTime()" :title="smallCard.title"/>

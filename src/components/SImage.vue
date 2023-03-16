@@ -1,5 +1,5 @@
 <template>
-  <n-image :src="src" fallback-src="https://picsum.photos/400/200" style="height: 100%;" preview-disabled/>
+  <n-image :src="src" fallback-src="https://picsum.photos/600/400" style="height: 100%;" preview-disabled/>
 </template>
 
 <script setup lang="ts">

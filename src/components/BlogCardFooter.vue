@@ -1,5 +1,5 @@
 <template>
-  <n-space item-style="display:flex" justify="center" align="center">
+  <n-space item-style="display:flex" justify="center" align="center" >
     <n-avatar
         bordered
         style="border-style: solid;border-color: black;"
