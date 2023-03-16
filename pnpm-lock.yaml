@@ -11,7 +11,7 @@ specifiers:
   axios: ^1.3.4
   json-bigint: ^1.0.0
   less: ^4.1.3
-  naive-ui: ^2.34.3
+  naive-ui: ^2.34.2
   typescript: ^4.9.3
   vditor: ^3.9.0
   vite: ^4.1.0
@@ -40,7 +40,7 @@ dependencies:
 devDependencies:
   '@vitejs/plugin-vue': 4.0.0_vite@4.1.3+vue@3.2.47
   less: 4.1.3
-  naive-ui: 2.34.3_vue@3.2.47
+  naive-ui: 2.34.2_vue@3.2.47
   typescript: 4.9.5
   vite: 4.1.3_less@4.1.3
   vite-plugin-pages: 0.28.0_vite@4.1.3
@@ -1750,8 +1750,8 @@ packages:
     resolution: {integrity: sha512-YVE1mIJ4VpUMqZObFndk9CJu6DBJR/GB13p3tXuNbwD4XExaI5EOuRl6BHeIDxIqXZVxSfAC+y6U1Z/IxCfKUg==}
     dev: true
 
-  /naive-ui/2.34.3_vue@3.2.47:
-    resolution: {integrity: sha512-fUMr0dzb/iGsOTWgoblPVobY5X5dihQ1eam5dA+H74oyLYAvgX4pL96xQFPBLIYqvyRFBAsN85kHN5pLqdtpxA==}
+  /naive-ui/2.34.2_vue@3.2.47:
+    resolution: {integrity: sha512-JyvtVqHzS0O0DyPFFg95cJW0fp2WCEPsjXbeplkxFIfJHCgp5KC75PjnBycryegjPiZNLn9WlRDxXU5emEqRfg==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:

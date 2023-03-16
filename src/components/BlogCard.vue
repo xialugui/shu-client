@@ -5,31 +5,43 @@
           footer-style="display:flex;justify-content: left;"
   >
     <template #cover>
-      <n-image src="./src/assets/img1.png" style="height: 100%;" preview-disabled/>
+      <s-image :src="cover"/>
     </template>
     <template #header>
-      <blog-card-header :time="0" topic="123456"/>
+      <blog-card-header :readTime="calculateReadTime(content)" :topic="topic.name"/>
     </template>
-    <blog-card-content content="111"/>
+    <blog-card-content :title="title"/>
     <template #footer>
-      <blog-card-footer avatar="111" name="111" :time="1"/>
+      <blog-card-footer :avatar="author.avatar" :name="author.name" :time="time"/>
     </template>
   </n-card>
 </template>
 
 <script setup lang="ts">
-import {NCard, NImage} from "naive-ui";
+import {NCard} from "naive-ui";
 import BlogCardHeader from "./BlogCardHeader.vue";
 import BlogCardContent from "./BlogCardContent.vue";
 import BlogCardFooter from "./BlogCardFooter.vue";
+import {onMounted} from "vue";
+import {useLogger} from "../utils/logger";
+import SImage from "./SImage.vue";
 
-withDefaults(defineProps<{
-  cover: string, topic: string, content: string, author: {
+const logger = useLogger()
+
+const props = withDefaults(defineProps<{
+  cover: string, topic: { name: string }, title: string, content: string, author: {
     id: bigint,
     name: string,
     avatar: string
-  }
+  }, time: number
 }>(), {})
+
+function calculateReadTime(content: string): number {
+  return content.trim().length / 60;
+}
+
+onMounted(() => {
+});
 </script>
 
 

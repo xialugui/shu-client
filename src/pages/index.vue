@@ -21,6 +21,10 @@ onMounted(() => {
 interface Card {
   title: string,
   content: string,
+  cover: string,
+  topic: {
+    name: string
+  },
   author: {
     id: bigint,
     name: string,
@@ -32,16 +36,43 @@ interface Card {
 
 let cards = ref<Card[]>()
 const card = ref<Card>()
+const smallCards = ref<Card[]>()
+const previewCard: Card = {
+  id: BigInt(1),
+  title: "丙寅天津竹枝词",
+  content: "俗尚原无理可推，人情大半为求财。\n谷糠未引钱龙至， 鼠猬先驮宝藏来。",
+  cover: "",
+  topic: {name: "Spring"},
+  author: {
+    id: BigInt(1),
+    name: "冯文洵",
+    avatar: "string",
+  },
+  time_info: {created_date_time: Date.now(), last_modified_date: Date.now()}
+}
 
 function loadBlogCards() {
   get(`${Url.Blogs}/cards`).then(data => {
     // logger.debug("博客卡片组：", data)
     cards.value = data
+    putPreviewCardsIfNotPresent(cards.value!)
     card.value = cards.value?.[0];
-    // logger.debug("博客卡片：", card.value)
+    smallCards.value = cards.value
+    // logger.debug("博客卡片：", cards.value?.[0].title);
 
   })
 }
+
+function putPreviewCardsIfNotPresent(cards: Card[]) {
+  if (cards && cards.length < 4) {
+    logger.debug("博客卡片数量不足4，生成预览卡片，", cards.length);
+    for (let i = 0; i < 4 - cards.length; i++) {
+      cards.push(previewCard)
+    }
+  }
+}
+
+
 </script>
 
 <template>
@@ -50,11 +81,13 @@ function loadBlogCards() {
       <s-navigator/>
       <s-slogan/>
       <n-space justify="center" size="large">
-        <blog-card :author="card.author" :content="card.content" cover="no" topic="1111"/>
+        <blog-card :key="card.id" :author="card.author" :content="card.content" :cover="card.cover" :topic="card.topic"
+                   :time="new Date(card.time_info.last_modified_date).getTime()" :title="card.title"/>
         <n-space vertical justify="space-around" align="center" style="height: 100%">
-          <blog-small-card/>
-          <blog-small-card/>
-          <blog-small-card/>
+          <blog-small-card v-for="smallCard in smallCards" :key="smallCard.id" :author="smallCard.author"
+                           :content="smallCard.content"
+                           :cover="smallCard.cover" :topic="smallCard.topic"
+                           :time="new Date(smallCard.time_info.last_modified_date).getTime()" :title="smallCard.title"/>
         </n-space>
       </n-space>
     </n-space>

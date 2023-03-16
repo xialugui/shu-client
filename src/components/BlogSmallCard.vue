@@ -1,23 +1,36 @@
 <template>
   <n-space>
-    <n-image src="src/assets/img1.png" width="240" style="border-radius: .5rem;height: 100%" preview-disabled/>
-    <n-space vertical style="width: 20rem">
-      <blog-card-header :time="0" topic="1111"/>
-      <blog-card-content content="11111" style="font-size: x-large"/>
-      <blog-card-footer size="small" avatar="111" name="11" :time="1"/>
+    <s-image :src="cover" width="240" style="border-radius: .5rem;"/>
+    <!--    <n-image :src="cover" fallback-src="" width="240" style="border-radius: .5rem;height: 100%" preview-disabled/>-->
+    <n-space vertical style="width: 20rem;height: 100%" justify="space-between" align="flex-start">
+      <blog-card-header :readTime="calculateReadTime(content)" :topic="topic.name"/>
+      <blog-card-content :title="title" style="font-size: x-large"/>
+      <blog-card-footer size="small" :avatar="author.avatar" :name="author.name" :time="time"/>
     </n-space>
   </n-space>
 </template>
 
 <script setup lang="ts">
-import {NImage, NSpace} from "naive-ui";
+import {NSpace} from "naive-ui";
 import BlogCardHeader from "./BlogCardHeader.vue";
 import BlogCardContent from "./BlogCardContent.vue";
 import BlogCardFooter from "./BlogCardFooter.vue";
+import {useLogger} from "../utils/logger";
+import SImage from "./SImage.vue";
 
-/*withDefaults(defineProps<{ boxShadowStyle?: string; }>(), {
-  boxShadowStyle: "0 .5rem 1.2rem rgba(215,215,215,5)"
-});*/
+const logger = useLogger()
+
+const props = withDefaults(defineProps<{
+  cover: string, topic: { name: string }, title: string, content: string, author: {
+    id: bigint,
+    name: string,
+    avatar: string
+  }, time: number
+}>(), {})
+
+function calculateReadTime(content: string): number {
+  return content.trim().length / 60;
+}
 </script>
 
 <style scoped>
