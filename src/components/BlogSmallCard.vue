@@ -1,8 +1,8 @@
 <template>
   <n-space>
-    <s-image :src="cover" width="240" style="border-radius: .5rem;"/>
+    <s-image :src="cover" style="border-radius: .5rem;"/>
     <!--    <n-image :src="cover" fallback-src="" width="240" style="border-radius: .5rem;height: 100%" preview-disabled/>-->
-    <n-space vertical style="width: 20rem;height: 100%" justify="space-between" align="flex-start">
+    <n-space vertical style="height: 100%" justify="space-between" align="flex-start">
       <blog-card-header :readTime="calculateReadTime(content)" :topic="topic.name"/>
       <blog-card-content :title="title" style="font-size: x-large"/>
       <blog-card-footer size="small" :avatar="author.avatar" :name="author.name" :time="time"/>

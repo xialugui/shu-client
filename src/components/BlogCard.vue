@@ -1,6 +1,6 @@
 <template>
   <n-card :bordered="true" size="medium"
-          style="border-width: .2rem;border-color: black;border-radius: .5rem;width: 40rem;"
+          style="border-width: .2rem;border-color: black;border-radius: .5rem;"
           content-style="display:flex;text-align: left;font-weight:bold;font-size:xx-large"
           footer-style="display:flex;justify-content: left;"
   >
