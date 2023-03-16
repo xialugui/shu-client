@@ -5,7 +5,6 @@ import SNavigator from "../components/SNavigator.vue";
 import SSlogan from "../components/SSlogan.vue";
 import BlogMediumCards from "../components/BlogMediumCards.vue";
 import SFooter from "../components/SFooter.vue";
-import MoreBlogs from "../components/MoreBlogs.vue";
 import {onMounted, ref} from "vue";
 import {get} from "../utils/requests";
 import {Url} from "../utils/urls";
@@ -37,6 +36,7 @@ interface Card {
 let cards = ref<Card[]>()
 const card = ref<Card>()
 const smallCards = ref<Card[]>()
+const current = new Date().toDateString()
 const previewCard: Card = {
   id: BigInt(1),
   title: "丙寅天津竹枝词",
@@ -48,26 +48,37 @@ const previewCard: Card = {
     name: "冯文洵",
     avatar: "string",
   },
-  time_info: {created_date_time: Date.now().toString(), last_modified_date: `${Date.now()}`}
+  time_info: {created_date_time: current, last_modified_date: current}
 }
+const previewCards: Card[] = []
+previewCards.push(Object.assign({}, previewCard))
+previewCard.title = "诗经·国风·魏风·硕鼠"
+previewCard.content = "硕鼠硕鼠，无食我黍！三岁贯汝，莫我肯顾。逝将去汝，适彼乐土。乐土乐土 ，爰得我所。"
+previewCard.author.name = "佚名"
+previewCards.push(Object.assign({}, previewCard))
+previewCard.title = "鼫鼠赞"
+previewCard.content = "五能之鼠，技无所执。应气而化，翻飞鴽集。诗人歌之，无食我粒。"
+previewCard.author.name = "郭璞"
+previewCards.push(Object.assign({}, previewCard))
+previewCard.title = "禽虫十二章"
+previewCard.content = "一鼠得仙生羽翼，众鼠相看有羡色。岂知飞上未半空，已作乌鸢口中食。"
+previewCard.author.name = "白居易"
+previewCards.push(Object.assign({}, previewCard))
 
 function loadBlogCards() {
   get(`${Url.Blogs}/cards`).then(data => {
-    // logger.debug("博客卡片组：", data)
     cards.value = data
     putPreviewCardsIfNotPresent(cards.value!)
     card.value = cards.value?.[0];
-    smallCards.value = cards.value
-    // logger.debug("博客卡片：", cards.value?.[0].title);
-
+    smallCards.value = cards.value?.slice(1, 4)
   })
 }
 
 function putPreviewCardsIfNotPresent(cards: Card[]) {
   if (cards && cards.length < 4) {
     logger.debug("博客卡片数量不足4，生成预览卡片，", cards.length);
-    for (let i = 0; i < 4 - cards.length; i++) {
-      cards.push(previewCard)
+    for (let i = cards.length; i <= 4; i++) {
+      cards.push(previewCards[i])
     }
   }
 }
@@ -81,10 +92,12 @@ function putPreviewCardsIfNotPresent(cards: Card[]) {
       <s-navigator/>
       <s-slogan/>
       <n-space justify="center" size="large">
-        <blog-card style="width: 45rem;" :key="card.id" :author="card.author" :content="card.content" :cover="card.cover" :topic="card.topic"
+        <blog-card style="width: 45rem;" :key="card.id" :author="card.author" :content="card.content"
+                   :cover="card.cover" :topic="card.topic"
                    :time="new Date(card.time_info.last_modified_date).getTime()" :title="card.title"/>
         <n-space vertical justify="space-around" align="center" style="height: 100%">
-          <blog-small-card style="width: 50rem;height: 15rem" v-for="smallCard in smallCards" :key="smallCard.id" :author="smallCard.author"
+          <blog-small-card style="width: 50rem;height: 15rem" v-for="smallCard in smallCards" :key="smallCard.id"
+                           :author="smallCard.author"
                            :content="smallCard.content"
                            :cover="smallCard.cover" :topic="smallCard.topic"
                            :time="new Date(smallCard.time_info.last_modified_date).getTime()" :title="smallCard.title"/>
@@ -92,15 +105,11 @@ function putPreviewCardsIfNotPresent(cards: Card[]) {
       </n-space>
     </n-space>
 
-    <more-blogs/>
+    <!--    <more-blogs/>-->
 
-    <div>
-
-      <n-space vertical size="large" align="center">
-        <blog-medium-cards style="height: 70rem;width: 80rem"/>
-      </n-space>
-    </div>
-
+    <n-space vertical size="large" align="center">
+      <blog-medium-cards style="height: 70rem;width: 80rem"/>
+    </n-space>
     <div style="height: 5rem"/>
 
     <s-footer/>
