@@ -1,6 +1,5 @@
 <template>
-  <n-space vertical style="box-shadow:0 1rem 3rem whitesmoke;border-radius: .5rem; padding: 1rem;
-width: 100%;
+  <n-space vertical style="box-shadow:0 1rem 3rem whitesmoke;border-radius: .5rem; padding: 1rem;flex-grow: 1;
 " size="large">
     <s-h2>
       <n-ellipsis line-clamp="1">
@@ -29,7 +28,6 @@ import {NEllipsis, NSpace, NTime} from "naive-ui";
 import SH3 from "./SH3.vue";
 import SAuthor from "./SAuthor.vue";
 import STag from "./STag.vue";
-import SImage from "./SImage.vue";
 
 const props = withDefaults(defineProps<{
   cover: string, topic: { name: string }, title: string, content: string, author: {

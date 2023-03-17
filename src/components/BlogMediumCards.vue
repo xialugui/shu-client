@@ -1,6 +1,6 @@
 <template>
   <n-space class="wrapper"
-           style="position:relative;overflow: hidden;padding: 2rem 1rem 1rem 3rem" justify="center">
+           style="position:relative;overflow: hidden;padding: 2rem 3rem 3rem 3rem;" justify="center" item-style="flex-grow:1">
     <n-space vertical :size="40">
       <blog-medium-card v-for="mediumCard in content" :key="mediumCard.id"
                         :author="mediumCard.author" :time="new Date(mediumCard.time_info.last_modified_date).getTime()"
@@ -80,7 +80,7 @@ function putPreviewCardsIfNotPresent(cards: Card[]) {
       logger.debug(i)
       cards.push(previewCards[i])
     }
-    logger.debug("补足卡片，卡片长度：",cards.length)
+    logger.debug("补足卡片，卡片长度：", cards.length)
   }
 }
 </script>
