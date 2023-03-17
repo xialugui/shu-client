@@ -1,32 +1,22 @@
 <template>
   <n-space vertical style="box-shadow:0 1rem 3rem whitesmoke;border-radius: .5rem; padding: 1rem;
-background:linear-gradient(rgba(255,255,255,0.99), rgba(255,255,255,0.93)), url('./src/assets/img1.png') no-repeat;
 width: 100%;
 " size="large">
     <s-h2>
       <n-ellipsis line-clamp="1">
-        VUE3_组件间传值的三种方法_setup语法糖_记录语法糖_记录语法糖_记录语法糖_记录语法糖_记录语法糖_记录语法糖_记录语法糖_记录语法糖_记录语法糖_记录语法糖_记录
+        {{ title }}
       </n-ellipsis>
     </s-h2>
     <s-h3 style="color: #676767;">
       <n-ellipsis line-clamp="3" :tooltip="false">
-        1.vue3基础介绍12312312313122基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介
-        绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍
-        基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介
-        绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础
-        介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍
-        基础介绍
-        基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍
-        基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍
-        基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍基础介绍
-
+        {{ content }}
       </n-ellipsis>
     </s-h3>
     <n-space align="center" justify="space-between">
-      <s-author src="./src/assets/logo.png">XiaLuGui</s-author>
-      <s-tag>Spring boot</s-tag>
+      <s-author src="./src/assets/logo.png">{{ author.name }}</s-author>
+      <s-tag>{{ topic.name }}</s-tag>
       <s-h3>
-        <n-time type="datetime" format="yyyy-MM-dd HH:mm:ss"/>
+        <n-time type="datetime" :time="time"/>
       </s-h3>
     </n-space>
   </n-space>
@@ -38,7 +28,17 @@ import SH2 from "./SH2.vue";
 import {NEllipsis, NSpace, NTime} from "naive-ui";
 import SH3 from "./SH3.vue";
 import SAuthor from "./SAuthor.vue";
-import STag from "./STag.vue";</script>
+import STag from "./STag.vue";
+import SImage from "./SImage.vue";
+
+const props = withDefaults(defineProps<{
+  cover: string, topic: { name: string }, title: string, content: string, author: {
+    id: bigint,
+    name: string,
+    avatar: string
+  }, time: number
+}>(), {})
+</script>
 
 <style scoped>
 </style>

@@ -10,6 +10,7 @@ import {get} from "../utils/requests";
 import {Url} from "../utils/urls";
 import BlogCard from "../components/BlogCard.vue";
 import {useLogger} from "../utils/logger";
+import {previewCards} from "../utils/preview-cards";
 
 const logger = useLogger()
 
@@ -36,7 +37,7 @@ interface Card {
 let cards = ref<Card[]>()
 const card = ref<Card>()
 const smallCards = ref<Card[]>()
-const current = new Date().toDateString()
+/*const current = new Date().toDateString()
 const previewCard: Card = {
   id: BigInt(1),
   title: "丙寅天津竹枝词",
@@ -63,7 +64,7 @@ previewCards.push(Object.assign({}, previewCard))
 previewCard.title = "禽虫十二章"
 previewCard.content = "一鼠得仙生羽翼，众鼠相看有羡色。岂知飞上未半空，已作乌鸢口中食。"
 previewCard.author.name = "白居易"
-previewCards.push(Object.assign({}, previewCard))
+previewCards.push(Object.assign({}, previewCard))*/
 
 function loadBlogCards() {
   get(`${Url.Blogs}/cards`).then(data => {
