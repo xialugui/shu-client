@@ -5,7 +5,7 @@
           footer-style="display:flex;justify-content: left;"
   >
     <template #cover>
-      <s-image :src="cover"/>
+      <s-image :src="cover" id="cover" @click="read"/>
     </template>
     <template #header>
       <blog-card-header :readTime="calculateReadTime(content)" :topic="topic.name"/>
@@ -25,10 +25,13 @@ import BlogCardFooter from "./BlogCardFooter.vue";
 import {onMounted} from "vue";
 import {useLogger} from "../utils/logger";
 import SImage from "./SImage.vue";
+import {useRouter} from "vue-router";
 
 const logger = useLogger()
+const router = useRouter()
 
 const props = withDefaults(defineProps<{
+  id: bigint,
   cover: string, topic: { name: string }, title: string, content: string, author: {
     id: bigint,
     name: string,
@@ -42,6 +45,10 @@ function calculateReadTime(content: string): number {
 
 onMounted(() => {
 });
+
+function read() {
+  router.push(`read/${props.id}`)
+}
 </script>
 
 
@@ -52,6 +59,10 @@ onMounted(() => {
   box-shadow: 0 1rem 10rem rgba(0, 0, 0, .3);
   height: 30rem;
   border-radius: 1rem;
+}
+
+#cover:hover {
+  cursor: pointer;
 }
 
 </style>

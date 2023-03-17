@@ -65,7 +65,7 @@ function putPreviewCardsIfNotPresent(cards: Card[]) {
       <s-navigator/>
       <s-slogan/>
       <n-space justify="center" size="large">
-        <blog-card style="width: 45rem;" :key="card.id" :author="card.author" :content="card.content"
+        <blog-card style="width: 45rem;" :key="card.id" :id="card.id" :author="card.author" :content="card.content"
                    :cover="card.cover" :topic="card.topic"
                    :time="new Date(card.time_info.last_modified_date).getTime()" :title="card.title"/>
         <n-space vertical justify="space-around" align="center" style="height: 100%">
