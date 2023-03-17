@@ -3,7 +3,7 @@
   <n-space id="container" item-style="flex-grow: 1" style="flex-wrap: nowrap;flex-grow: 1">
 
     <n-space vertical>
-      <s-h1 style="width: fit-content">{{ blog.title }}</s-h1>
+      <s-h1>{{ blog.title }}</s-h1>
       <div id="vditor" ref="wrapper">
       </div>
     </n-space>
@@ -64,7 +64,7 @@ function load(id: bigint) {
     Vditor.preview(wrapper.value!, blog.value?.content!, {
       mode: 'light', after() {
         Vditor.outlineRender(wrapper.value!, outline.value!)
-      }
+      },
     })
 
   })
