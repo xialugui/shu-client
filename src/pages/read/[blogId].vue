@@ -1,8 +1,23 @@
 <template>
-  <n-space id="container" vertical align="center" item-style="flex-grow: 1">
-    <s-h1>{{ blog.title }}</s-h1>
-    <div id="vditor" ref="wrapper"/>
-    <div ref="outline" style="height: 10rem;width: 10rem;background-color: rebeccapurple">111111</div>
+
+  <n-space id="container" style="flex-wrap: nowrap">
+
+    <n-space item-style="flex-grow:1" vertical>
+      <s-h1>{{ blog.title }}</s-h1>
+      <div id="vditor" ref="wrapper">
+      </div>
+    </n-space>
+
+    <n-space>
+      <n-affix
+          :trigger-top="0"
+          :top="0"
+          position="fix"
+      >
+        <div ref="outline" style="display: block"></div>
+      </n-affix>
+    </n-space>
+
   </n-space>
 </template>
 <style scoped>
@@ -14,10 +29,11 @@
 <script setup lang="ts">
 import {useLogger} from "../../utils/logger";
 import Vditor from "vditor";
+import 'vditor/dist/index.css'
 import {onMounted, ref} from "vue";
 import {get} from "../../utils/requests";
 import {Url} from "../../utils/urls";
-import {NSpace} from "naive-ui";
+import {NAffix, NSpace} from "naive-ui";
 import SH1 from "../../components/SH1.vue";
 
 const props = withDefaults(defineProps<{ blogId: bigint }>(), {})
@@ -45,8 +61,12 @@ function load(id: bigint) {
   logger.debug("博客id为：", id)
   get(`${Url.Blogs}/${id}`).then(data => {
     blog.value = data
-    Vditor.preview(wrapper.value!, blog.value?.content!)
-    Vditor.outlineRender(wrapper.value!, outline.value!)
+    Vditor.preview(wrapper.value!, blog.value?.content!, {
+      mode: 'light', after() {
+        Vditor.outlineRender(wrapper.value!, outline.value!)
+      }
+    })
+
   })
 }
 </script>
