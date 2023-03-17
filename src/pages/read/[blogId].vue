@@ -4,7 +4,7 @@
 
     <n-space vertical>
       <s-h1>{{ blog.title }}</s-h1>
-      <div id="vditor" ref="wrapper">
+      <div class="vditor-reset" id="vditor" ref="wrapper">
       </div>
     </n-space>
 
@@ -30,6 +30,7 @@
 import {useLogger} from "../../utils/logger";
 import Vditor from "vditor";
 import 'vditor/dist/index.css'
+import '../../assets/css/shu.css'
 import {onMounted, ref} from "vue";
 import {get} from "../../utils/requests";
 import {Url} from "../../utils/urls";
@@ -65,6 +66,9 @@ function load(id: bigint) {
       mode: 'light', after() {
         Vditor.outlineRender(wrapper.value!, outline.value!)
       },
+      theme: {
+        current: 'shu'
+      }
     })
 
   })
