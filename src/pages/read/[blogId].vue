@@ -1,9 +1,9 @@
 <template>
 
-  <n-space id="container" style="flex-wrap: nowrap">
+  <n-space id="container" item-style="flex-grow: 1" style="flex-wrap: nowrap;flex-grow: 1">
 
-    <n-space item-style="flex-grow:1" vertical>
-      <s-h1>{{ blog.title }}</s-h1>
+    <n-space vertical>
+      <s-h1 style="width: fit-content">{{ blog.title }}</s-h1>
       <div id="vditor" ref="wrapper">
       </div>
     </n-space>
@@ -11,10 +11,10 @@
     <n-space>
       <n-affix
           :trigger-top="0"
-          :top="0"
+          :top="30"
           position="fix"
       >
-        <div ref="outline" style="display: block"></div>
+        <div ref="outline" style="display: flex;"></div>
       </n-affix>
     </n-space>
 
