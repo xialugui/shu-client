@@ -107,7 +107,7 @@ function putPreviewCardsIfNotPresent(cards: Card[]) {
 
     <!--    <more-blogs/>-->
 
-    <n-space vertical size="large" align="center">
+    <n-space vertical size="large" align="center" style="padding: 2rem 0 2rem 0;">
       <blog-medium-cards style="height: 70rem;width: 80rem"/>
     </n-space>
     <div style="height: 5rem"/>
@@ -121,7 +121,7 @@ function putPreviewCardsIfNotPresent(cards: Card[]) {
 
 
 #introduce {
-  padding: 3rem 0;
+  padding: 3rem 0 10rem 0;
   background-image: url("../assets/mouse.png");
 }
 </style>
